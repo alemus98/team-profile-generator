@@ -1,0 +1,20 @@
+body {
+    color: var(--dark);
+    background-color: #b6c1ff;
+}
+
+/* .bg-dark {
+    background-color: #c1ffb6;
+}
+
+.bg-purple {
+    background-color: var(--purple);
+} */
+
+.mb-3 {
+    background-color: #ffb6d3;
+}
+
+.text-center {
+    background-color: #c1ffb6;
+}
