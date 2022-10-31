@@ -13,7 +13,7 @@ const getEmployeeDataAsync = async () => {
             type: 'list',
             name: 'role', 
             message: 'Please select role to add:',
-            choices: ['Employee', 'Manager', 'Enginerr', 'Intern', 'Exit']
+            choices: ['Manager', 'Engineer', 'Intern', 'Exit']
         });
 
         const employeeJob = response.role;
