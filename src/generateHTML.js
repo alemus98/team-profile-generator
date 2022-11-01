@@ -29,7 +29,7 @@ function renderEmployeeCards(employeeArray) {
     managerArray.forEach(function (answers){
         let managerCard = `<article class="col mb-4">
                 <div class="card">
-                    <div class="card-header text-center bg-blue">
+                    <div class="card-header text-center">
                         <h4 class="card-title">${answers.name.name}</h4>
                         <h5><i class="fa-solid fa-mug-hot"></i> Manager</h5>
                     </div>
@@ -49,7 +49,7 @@ function renderEmployeeCards(employeeArray) {
     engineerArray.forEach(function (answers){
         let engineerCard = `<article class="col mb-4">
                 <div class="card">
-                    <div class="card-header text-center bg-blue">
+                    <div class="card-header text-center">
                         <h4 class="card-title">${answers.name.name}</h4>
                         <h5><i class="fa-solid fa-gears"></i> Engineer</h5>
                     </div>
@@ -69,7 +69,7 @@ function renderEmployeeCards(employeeArray) {
     internArray.forEach(function (answers){
         let internCard = `<article class="col mb-4">
                 <div class="card">
-                    <div class="card-header text-center bg-blue">
+                    <div class="card-header text-center">
                         <h4 class="card-title">${answers.name.name}</h4>
                         <h5><i class="fa-solid fa-user-graduate"></i> Intern</h5>
                     </div>
@@ -116,7 +116,7 @@ function generateHTML(htmloutput){
         <link rel="stylesheet" href="style.css" />
         <title>Document</title>
     </head>
-    <body class="bg-dark">
+    <body>
         <header class="jumbotron mb-3 bg-purple">
             <h1 class="display-4 d-flex justify-content-center">My Team Profile</h1>
         </header>
