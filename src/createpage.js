@@ -1,84 +1,141 @@
-// const fs = require('fs');
-// const path = require('path');
+const { default: ListPrompt } = require("inquirer/lib/prompts/list") //? what is this?
+const Employee = require('../lib/Employee');
+const Manager = require('../lib/Manager');
+const Engineer = require('../lib/Engineer');
+const Intern = require('../lib/Intern');
 
-const roleTitles = {
-    "Engineer": {value: 'github', render: "Github"},
-    "Intern": {value: 'school', render: "School"},
-    "Manager": {value: 'officeNumber', render: "Office #"}
+function renderEmployeeCards(employeeArray) {
+    const answerArray = employeeArray;
+
+    // this is the empty array that all the cards html will get pushed into
+    const htmlOutputArray = []
+
+    // functions that check if a specific value in the object. if it exists, then this returns true
+    const testManager = (answer) => (answer.officeNumber) ? true : false;
+
+    const testEngineer = (answer) => (answer.github) ? true : false;
+
+    const testIntern = (answer) => (answer.school) ? true : false; 
+
+
+    // filter arrays, check to see if they have something specfic to the classes. if yes make it that class
+    const managerArray = answerArray.filter(testManager).map(item => new Manager(item));
+
+    const engineerArray = answerArray.filter(testEngineer).map(item => new Engineer(item));
+
+    const internArray = answerArray.filter(testIntern).map(item => new Intern(item));
+
+    // these functions create the html strings that will get pushed into the answer array
+    managerArray.forEach(function (answers){
+        let managerCard = `<article class="col mb-4">
+                <div class="card">
+                    <div class="card-header text-center bg-blue">
+                        <h4 class="card-title">${answers.name.name}</h4>
+                        <h5><i class="fa-solid fa-mug-hot"></i> Manager</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ID : ${answers.name.id}</li>
+                            <li class="list-group-item">Email: <a href="mailto:${answers.name.email}">${answers.name.email}</a></li>
+                            <li class="list-group-item">Office number : ${answers.name.officeNumber}</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>`
+        
+        htmlOutputArray.push(managerCard);
+    })
+
+    engineerArray.forEach(function (answers){
+        let engineerCard = `<article class="col mb-4">
+                <div class="card">
+                    <div class="card-header text-center bg-blue">
+                        <h4 class="card-title">${answers.name.name}</h4>
+                        <h5><i class="fa-solid fa-gears"></i> Engineer</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ID : ${answers.name.id}</li>
+                            <li class="list-group-item">Email: <a href="mailto:${answers.name.email}">${answers.name.email}</a></li>
+                            <li class="list-group-item">GitHub : <a href="https://github.com/${answers.name.github}" target="_blank" rel="noopener noreferrer">${answers.name.github}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </article> `
+        
+        htmlOutputArray.push(engineerCard);
+    })
+
+    internArray.forEach(function (answers){
+        let internCard = `<article class="col mb-4">
+                <div class="card">
+                    <div class="card-header text-center bg-blue">
+                        <h4 class="card-title">${answers.name.name}</h4>
+                        <h5><i class="fa-solid fa-user-graduate"></i> Intern</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ID : ${answers.name.id}</li>
+                            <li class="list-group-item">Email: <a href="mailto:${answers.name.email}">${answers.name.email}</a></li>
+                            <li class="list-group-item">School : ${answers.name.school}</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>`
+
+        htmlOutputArray.push(internCard);
+    })
+
+    return generateHTML(htmlOutputArray.join())
+
 }
 
-const getGeneratedWorkerInfo = (role, data) => {
-    console.log(role, data);
-    if (role === 'github') {
-        return `<a href="https://github.com/${data}">${data}</a>`;
-    } else {
-        return data;
-    }
-}
-
-const getTemplate = data => {
+// returns the entire html as a string 
+function generateHTML(htmloutput){
     return `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-        <link rel="stylesheet" href="./style.css">
-        <title>My Team</title>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://kit.fontawesome.com/2af300434d.js"
+            crossorigin="anonymous">
+        </script>
+        
+        <link rel="stylesheet" href="style.css" />
+        <title>Document</title>
     </head>
-    <body>
-        
-        <header class="p-5">
-            <h1>My Team</h1>
+    <body class="bg-dark">
+        <header class="jumbotron mb-3 bg-purple">
+            <h1 class="display-4 d-flex justify-content-center">My Team Profile</h1>
         </header>
-        <div class="d-flex justify-content-center flex-row flex-wrap p-3">
-            ${data}
-        </div>
-        
-        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    
+        <main class="mx-3">
+            <section class="row row-cols-1 row-cols-md-3">
+                
+            ${htmloutput}
+                
+            </section>
+    
+        </main>
+    
+        <!-- Links -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+        <script src="./assets/js/script.js"></script>
     </body>
-    </html>
-    `
+    </html>`
 }
 
-const generatePage = data => {
-    let employeeCards = '';
-
-    data.forEach(worker => {
-        const employeeRoleInfo = roleTitles[worker.role];
-        const employeeRoleData = worker[employeeRoleInfo.value];
-
-        const employeeCard = `
-        <div class="card flex-column flex-start m-3">
-            <div class="card-header px-2 pt-3 pb-2">
-                <h2>${worker.name}</h2>
-                <p>${worker.role}</p>
-            </div>
-            <div class="shadow card-content mt-3 p-2">
-                <p><span>ID: </span>${worker.id}</p>
-                <p><span>Email: </span><a href="mailto:${worker.email}">${worker.email}</a></p>
-                <p><span>${employeeRoleInfo.render}: </span>${getGeneratedWorkerInfo(employeeRoleInfo.value, employeeRoleData)}</p>
-            </div>
-        </div>
-        `
-
-        employeeCards += employeeCard;
-    });
-
-    return getTemplate(employeeCards);
-}
-
-// const fs = require('fs');
-// const path = require('path');
-
-const renderHTML = content => {
-    fs.writeFile(path.join(__dirname, '../dist/test.html'), content, err => {
-        if (err) throw err;
-    });
-}
-
-module.exports = renderHTML;
-
-module.exports = generatePage
+module.exports = [renderEmployeeCards, generateHTML];
