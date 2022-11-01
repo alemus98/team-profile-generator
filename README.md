@@ -17,7 +17,7 @@
   ## Usage
   To use the application, first clone this repository. after that, run `npm install` in the command line to download the necessary packages(Note: you will need node.js installed on your computer to do this) Once the packages are installed, run in the command line `node index.js` in your console and you will be prompted to fill out questions for your team.  Below you can view the a demo of the application if on Github.
 
-https://user-images.githubusercontent.com/110364895/190562448-7436c7c2-ed75-4978-937f-f9daa0600df6.mp4
+  https://drive.google.com/file/d/1pXZ0x6kENDhV3waUMcSxgzzkZpVxnvdG/view
 
   Otherwise, you can use the link in the `Links` section to view the video.
   
