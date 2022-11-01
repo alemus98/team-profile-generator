@@ -1,39 +1,126 @@
-const inquirer = require('inquirer');
-const createPage = require('./src/createPage');
-const renderPage = require('./src/renderHTML');
-const employeeJobs = require('./lib/roles');
+const inquirer = require("inquirer");
+const fs = require("fs");
+const renderEmployeeCards = require("./src/generateHTML")[0];
 
-// prompta user input and log prompt questions from ./libs
-const getEmployeeDataAsync = async () => {
-    const employeeList = [];
+const employeeInput = [];
 
-    while (true) {
-        // prompts user for selection of role
-        const response = await inquirer.prompt({
-            type: 'list',
-            name: 'role', 
-            message: 'Please select role to add:',
-            choices: ['Manager', 'Engineer', 'Intern', 'Exit']
-        });
+const questions = [
+    {
+        type: "input", 
+        name: "name", 
+        message: "what is your name?",
+        validate: function (input) {
+            { 
+                if (input) return true; 
+                console.log('\nThis field is required.');
+                return false
+                }
+            
+        }
+    },
+    {
+        type: "input", 
+        name: "id", 
+        message: "what is your employee id?",
+        validate: function (input) {
+            { 
+                if (input) return true; 
+                console.log('\nThis field is required.');
+                return false
+                }
+            
+        }
 
-        const employeeJob = response.role;
-        if (employeeJob === 'Exit') break;
+    },
+    {
+        type: "input", 
+        name: "email", 
+        message: "what is your email?",
+        validate: function (input) {
+            { 
+                if (input) return true; 
+                console.log('\nThis field is required.');
+                return false
+                }
+            
+        }
+    },
+    {
+        type: "input", 
+        name: "officeNumber", 
+        message: "what is your office number?",
+        validate: function (input) {
+            { 
+                if (input) return true; 
+                console.log('\nThis field is required.');
+                return false
+                }           
+        }
+    },
+    {
+        type: "list", 
+        name: "typeEmployee", 
+        message: "what type of employee would you like to add?",
+        choices: ["Engineer","Intern","Exit"],
+    },
+]
 
-  
-        const employeeConstructor = employeeJobs[employeeJob];
-        const employeeInfo = await inquirer.prompt((new employeeConstructor).getPromptQuestions());
+async function init() {
+    let questioning = true;
 
-        console.log(`\nNew ${employeeJob} profile created for ${employeeInfo.name}.\n`);
+    while (questioning) {
+        const answers = await inquirer.prompt (questions)
 
-        employeeList.push({
-            role: employeeJob,
-            ...employeeInfo
-        });
+        if (answers.typeEmployee === "Exit") {
+            questioning = false;
+        }
+
+        if (answers.typeEmployee === "Engineer") {
+            questions.splice(3, 1, {
+                type: "input", 
+                name: "github", 
+                message: "what is your github username?",
+                validate: function (input) {
+                    { 
+                        if (input) return true; 
+                        console.log('\nThis field is required.');
+                        return false
+                        }
+                    
+                }
+            })
+        }
+        
+        if (answers.typeEmployee === "Intern") {
+            questions.splice(3, 1, {
+                type: "input", 
+                name: "school", 
+                message: "what is the name of your school?",
+                validate: function (input) {
+                    { 
+                        if (input) return true; 
+                        console.log('\nThis field is required.');
+                        return false
+                        }
+                    
+                }
+            })
+        }
+
+        employeeInput.push(answers);
+        
     }
 
-    return employeeList;
+    const htmlOutput = renderEmployeeCards(employeeInput)
+    writeToFile("./dist/template.html", htmlOutput)
+    
 }
 
-getEmployeeDataAsync()
-    .then(createPage)
-    .then(renderPage);
+
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, (err) =>
+        (err) ? console.log("error") : console.log("HTML File Generated")
+    )
+}
+
+init();
