@@ -1,4 +1,4 @@
-const { default: ListPrompt } = require("inquirer/lib/prompts/list") //? what is this?
+const { default: ListPrompt } = require("inquirer/lib/prompts/list") 
 const Employee = require('../lib/Employee');
 const Manager = require('../lib/Manager');
 const Engineer = require('../lib/Engineer');
@@ -7,10 +7,9 @@ const Intern = require('../lib/Intern');
 function renderEmployeeCards(employeeArray) {
     const answerArray = employeeArray;
 
-    // this is the empty array that all the cards html will get pushed into
     const htmlOutputArray = []
 
-    // functions that check if a specific value in the object. if it exists, then this returns true
+
     const testManager = (answer) => (answer.officeNumber) ? true : false;
 
     const testEngineer = (answer) => (answer.github) ? true : false;
@@ -18,20 +17,18 @@ function renderEmployeeCards(employeeArray) {
     const testIntern = (answer) => (answer.school) ? true : false; 
 
 
-    // filter arrays, check to see if they have something specfic to the classes. if yes make it that class
     const managerArray = answerArray.filter(testManager).map(item => new Manager(item));
 
     const engineerArray = answerArray.filter(testEngineer).map(item => new Engineer(item));
 
     const internArray = answerArray.filter(testIntern).map(item => new Intern(item));
 
-    // these functions create the html strings that will get pushed into the answer array
     managerArray.forEach(function (answers){
         let managerCard = `<article class="col mb-4">
                 <div class="card">
                     <div class="card-header text-center">
                         <h4 class="card-title">${answers.name.name}</h4>
-                        <h5><i class="fa-solid fa-mug-hot"></i> Manager</h5>
+                        <h5><i class="fa-solid fa-user"></i> Manager</h5>
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
@@ -90,7 +87,6 @@ function renderEmployeeCards(employeeArray) {
 
 }
 
-// returns the entire html as a string 
 function generateHTML(htmloutput){
     return `<!DOCTYPE html>
     <html lang="en">
@@ -117,7 +113,7 @@ function generateHTML(htmloutput){
         <title>Document</title>
     </head>
     <body>
-        <header class="jumbotron mb-3 bg-purple">
+        <header class="jumbotron">
             <h1 class="display-4 d-flex justify-content-center">My Team Profile</h1>
         </header>
     

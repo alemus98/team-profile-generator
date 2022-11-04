@@ -12,8 +12,7 @@ const questions = [
         validate: function (input) {
             { 
                 if (input) return true; 
-                console.log('\nThis field is required.');
-                return false
+
                 }
             
         }
@@ -25,8 +24,7 @@ const questions = [
         validate: function (input) {
             { 
                 if (input) return true; 
-                console.log('\nThis field is required.');
-                return false
+
                 }
             
         }
@@ -39,8 +37,7 @@ const questions = [
         validate: function (input) {
             { 
                 if (input) return true; 
-                console.log('\nThis field is required.');
-                return false
+
                 }
             
         }
@@ -52,8 +49,7 @@ const questions = [
         validate: function (input) {
             { 
                 if (input) return true; 
-                console.log('\nThis field is required.');
-                return false
+
                 }           
         }
     },
@@ -83,8 +79,6 @@ async function init() {
                 validate: function (input) {
                     { 
                         if (input) return true; 
-                        console.log('\nThis field is required.');
-                        return false
                         }
                     
                 }
@@ -99,8 +93,6 @@ async function init() {
                 validate: function (input) {
                     { 
                         if (input) return true; 
-                        console.log('\nThis field is required.');
-                        return false
                         }
                     
                 }
