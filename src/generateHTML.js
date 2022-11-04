@@ -1,21 +1,17 @@
-const { default: ListPrompt } = require("inquirer/lib/prompts/list") 
-const Employee = require('../lib/Employee');
 const Manager = require('../lib/Manager');
 const Engineer = require('../lib/Engineer');
 const Intern = require('../lib/Intern');
 
-function renderEmployeeCards(employeeArray) {
+function makeEmployeeCards(employeeArray) {
     const answerArray = employeeArray;
 
     const htmlOutputArray = []
-
 
     const testManager = (answer) => (answer.officeNumber) ? true : false;
 
     const testEngineer = (answer) => (answer.github) ? true : false;
 
     const testIntern = (answer) => (answer.school) ? true : false; 
-
 
     const managerArray = answerArray.filter(testManager).map(item => new Manager(item));
 
@@ -134,4 +130,4 @@ function generateHTML(htmloutput){
     </html>`
 }
 
-module.exports = [renderEmployeeCards, generateHTML];
+module.exports = [makeEmployeeCards, generateHTML];

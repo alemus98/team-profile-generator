@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const renderEmployeeCards = require("./src/generateHTML")[0];
+const makeEmployeeCards = require("./src/generateHTML")[0];
 
 const employeeInput = [];
 
@@ -12,9 +12,7 @@ const questions = [
         validate: function (input) {
             { 
                 if (input) return true; 
-
-                }
-            
+                }        
         }
     },
     {
@@ -24,9 +22,7 @@ const questions = [
         validate: function (input) {
             { 
                 if (input) return true; 
-
-                }
-            
+                }            
         }
 
     },
@@ -37,9 +33,7 @@ const questions = [
         validate: function (input) {
             { 
                 if (input) return true; 
-
-                }
-            
+                }          
         }
     },
     {
@@ -49,7 +43,6 @@ const questions = [
         validate: function (input) {
             { 
                 if (input) return true; 
-
                 }           
         }
     },
@@ -75,7 +68,7 @@ async function init() {
             questions.splice(3, 1, {
                 type: "input", 
                 name: "github", 
-                message: "what is your github username?",
+                message: "what is your Github username?",
                 validate: function (input) {
                     { 
                         if (input) return true; 
@@ -103,16 +96,13 @@ async function init() {
         
     }
 
-    const htmlOutput = renderEmployeeCards(employeeInput)
+    const htmlOutput = makeEmployeeCards(employeeInput)
     writeToFile("./dist/template.html", htmlOutput)
     
 }
-
-
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, (err) =>
         (err) ? console.log("error") : console.log("HTML File Generated")
     )
 }
-
 init();
