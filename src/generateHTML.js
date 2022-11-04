@@ -20,7 +20,7 @@ function makeEmployeeCards(employeeArray) {
     const internArray = answerArray.filter(testIntern).map(item => new Intern(item));
 
     managerArray.forEach(function (answers){
-        let managerCard = `<article class="col mb-4">
+        let managerCard = `<article class="col mb-2">
                 <div class="card">
                     <div class="card-header text-center">
                         <h4 class="card-title">${answers.name.name}</h4>
@@ -40,7 +40,7 @@ function makeEmployeeCards(employeeArray) {
     })
 
     engineerArray.forEach(function (answers){
-        let engineerCard = `<article class="col mb-4">
+        let engineerCard = `<article class="col mb-2">
                 <div class="card">
                     <div class="card-header text-center">
                         <h4 class="card-title">${answers.name.name}</h4>
@@ -60,7 +60,7 @@ function makeEmployeeCards(employeeArray) {
     })
 
     internArray.forEach(function (answers){
-        let internCard = `<article class="col mb-4">
+        let internCard = `<article class="col mb-2">
                 <div class="card">
                     <div class="card-header text-center">
                         <h4 class="card-title">${answers.name.name}</h4>
@@ -109,12 +109,12 @@ function generateHTML(htmloutput){
         <title>Document</title>
     </head>
     <body>
-        <header class="jumbotron">
+        <header class="jumbotron p-4">
             <h1 class="display-4 d-flex justify-content-center">My Team Profile</h1>
         </header>
     
         <main class="mx-3">
-            <section class="row row-cols-1 row-cols-md-3">
+            <section class="row row-cols-1 row-cols-md-2">
                 
             ${htmloutput}
                 
